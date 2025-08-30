@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Sublte</title>
+	<style>
+		:root {
+			--emphasized-curve: cubic-bezier(0.4, 0, 0.2, 1);
+			--nvzc6: #333438;
+			--nvzc5: #28292a;
+			--google-blue-svg: #4285F4;
+			--google-red-svg: #EA4335;
+			--google-yellow-svg: #FBBC05;
+			--google-green-svg: #34A853;
+			--expand-duration: .6s;
+		}
+
+		.input-container {
+			display: flex;
+			align-items: flex-end;
+			pointer-events: auto;
+			position: relative;
+			will-change: height, margin, width, border-radius, min-height, max-height;
+			transition-property: height, margin, width, border-radius, min-height, max-height;
+			transition-duration: .6s;
+			transition-timing-function: var(--emphasized-curve);
+			height: 60px;
+			min-height: 60px;
+			max-height: 60px;
+			border-radius: 32px
+		}
+
+		.bGkj2b .input-hitbox-overlay {
+			z-index: 2;
+			pointer-events: all
+		}
+
+		.bGkj2b .input-container,
+		.expanded-state .input-container,
+		.alt-expanded-state .input-container,
+		.border-expanded-state .input-container {
+			transition-duration: .6s
+				/* box height increase duration*/
+		}
+
+		.bGkj2b .input-container,
+		.expanded-state .input-container,
+		.alt-expanded-state .input-container,
+		.border-expanded-state .input-container {
+			height: 136px;
+			min-height: 136px;
+			max-height: 254px
+		}
+
+		.gradient-overlay {
+			position: absolute;
+			contain: paint;
+			border-radius: inherit;
+			inset: 0
+		}
+
+		.gradient-overlay::after {
+			border-radius: inherit;
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: var(--nvzc6, #333438);
+			z-index: -1
+		}
+
+		.gradient-overlay::before {
+			content: "";
+			position: absolute;
+			opacity: 0;
+			background: conic-gradient(rgba(52, 168, 82, 0) 0deg, rgba(52, 168, 82, 1) 38.9738deg, rgba(255, 211, 20, 1) 62.3678deg, rgba(255, 70, 65, 1) 87.0062deg, rgba(49, 134, 255, 1) 107.428deg, rgba(49, 134, 255, 0.5) 204.48deg, rgba(49, 134, 255, 0) 308.88deg, rgba(52, 168, 82, 0) 360deg) border-box;
+			left: 50%;
+			top: 50%;
+			translate: -50% -50%;
+			width: 900px;
+			height: 900px;
+			scale: 1 .4;
+			pointer-events: none;
+			transition: opacity .3s;
+			filter: blur(20px)
+		}
+
+		.expanded-state .gradient-overlay::before,
+		.alt-expanded-state .gradient-overlay::before,
+		.spin-gradient-state .gradient-overlay::before,
+		.extra-gradient-state .gradient-overlay::before {
+			animation: gradient-spin-expand 1.9s cubic-bezier(0.2, 0, 0, 1)
+		}
+
+		@keyframes gradient-spin-expand {
+			0% {
+				opacity: 1;
+				transform: rotate(90deg)
+			}
+
+			80% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 0;
+				transform: rotate(330deg)
+			}
+		}
+
+		.input-blur-border {
+			position: absolute;
+			contain: paint;
+			border-radius: inherit;
+			inset: 0;
+			border: 0 solid transparent
+		}
+
+		.expanded-state .input-blur-border,
+		.alt-expanded-state .input-blur-border,
+		.spin-gradient-state .input-blur-border {
+			animation: gradient-border-width 1.9s cubic-bezier(0.4, 0, 0.2, 1)
+		}
+
+		@keyframes gradient-border-width {
+			0% {
+				border-width: 0
+			}
+
+			11% {
+				border-width: 3px
+			}
+
+			100% {
+				border-width: 0
+			}
+		}
+
+		.input-blur-border::before {
+			content: "";
+			contain: paint;
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background: var(--nvzc5, #28292a);
+			filter: blur(0);
+			transition: filter .3s
+		}
+
+		.expanded-state .input-blur-border::before {
+			animation: plate-background-blur-on-expand 1.9s cubic-bezier(0.4, 0, 0.2, 1)
+				/*, color-pulse-on-expand .6s cubic-bezier(0.4, 0, 0.2, 1)*/
+		}
+
+		@keyframes plate-background-blur-on-expand {
+			0% {
+				filter: blur(0)
+			}
+
+			11% {
+				filter: blur(7px)
+			}
+
+			100% {
+				filter: blur(0)
+			}
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 90vh;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+
+<body style="padding: 40;">
+	<div class="main-container">
+		<div class="animated-wrapper" id="animated-element">
+			<div class="input-container input-padding-wrapper">
+				<div class="gradient-overlay"></div>
+				<div class="input-blur-border"></div>
+				<div class="svg-wrapper">
+					<div class="svg-container">
+						<svg class="svg-graphic" width="100%" height="100%" version="1.1" viewBox="0 0 700 230"
+							preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+							<defs>
+								<linearGradient id="colorGradient_xMZ1aNn1FN6P4-EPoOmYQQ_0"
+									gradientUnits="objectBoundingBox" x1="0%" x2="100%">
+									<stop offset="1%" stop-color="var(--google-blue-svg)"></stop>
+									<stop offset="25%" stop-color="var(--google-red-svg)"></stop>
+									<stop offset="50%" stop-color="var(--google-yellow-svg)"></stop>
+									<stop offset="75%" stop-color="var(--google-green-svg)"></stop>
+									<stop offset="100%" stop-color="var(--google-blue-svg)"></stop>
+								</linearGradient>
+								<clipPath id="clipPath_xMZ1aNn1FN6P4-EPoOmYQQ_0">
+									<path id="clipPathPath_xMZ1aNn1FN6P4-EPoOmYQQ_0" d="M0,230 L700,230 L700,0 L0,0 Z">
+									</path>
+								</clipPath>
+								<mask id="strokeMask_xMZ1aNn1FN6P4-EPoOmYQQ_0">
+									<linearGradient id="strokeFade_xMZ1aNn1FN6P4-EPoOmYQQ_0"
+										gradientUnits="objectBoundingBox" x1="0%" x2="100%">
+										<stop offset="0%" stop-color="black"></stop>
+										<stop offset="10%" stop-color="white"></stop>
+										<stop offset="90%" stop-color="white"></stop>
+										<stop offset="100%" stop-color="black"></stop>
+									</linearGradient>
+								</mask>
+							</defs>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const animatedElement = document.getElementById('animated-element');
+			const hoverTriggerElement = animatedElement.querySelector('.input-container');
+
+			// Refined list of classes for hover-triggered expansion
+			// Focusing on expanded-state and input-expand-animation as primary drivers of expansion.
+			const animationClasses = ['expanded-state', 'input-expand-animation'];
+
+			function triggerAnimation() {
+				animationClasses.forEach(cls => animatedElement.classList.add(cls));
+			}
+
+			function resetAnimation() {
+				animationClasses.forEach(cls => animatedElement.classList.remove(cls));
+			}
+
+			if (hoverTriggerElement) {
+				hoverTriggerElement.addEventListener('mouseover', triggerAnimation);
+				hoverTriggerElement.addEventListener('mouseout', resetAnimation);
+			} else {
+				console.error("Hover trigger element (.input-container) not found.");
+			}
+
+			// Ensure initial state is clean
+			resetAnimation();
+		});
+	</script>
+</body>
+
+</html>
